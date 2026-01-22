@@ -12,11 +12,13 @@ import { rankedSearchOnList } from '../../utils';
 import styles from './styles.css';
 
 interface OptionProps {
+    actions?: React.ReactNode;
     children: React.ReactNode;
     isActive: boolean;
 }
 function Option(props: OptionProps) {
     const {
+        actions,
         children,
         isActive,
     } = props;
@@ -28,6 +30,9 @@ function Option(props: OptionProps) {
             </div>
             <div className={styles.label}>
                 { children }
+            </div>
+            <div className={styles.actions}>
+                {actions}
             </div>
         </>
     );
@@ -50,6 +55,7 @@ export type SearchMultiSelectInputProps<
     searchOptions?: O[] | undefined | null;
     keySelector: (option: O) => T;
     labelSelector: (option: O) => string;
+    actionsSelector?: (option: O) => React.ReactNode;
     hideOptionFilter?: (option: O) => boolean;
     name: K;
     disabled?: boolean;
@@ -97,6 +103,7 @@ function SearchMultiSelectInput<
     const {
         keySelector,
         labelSelector,
+        actionsSelector,
         name,
         onChange,
         onOptionsChange,
@@ -237,10 +244,11 @@ function SearchMultiSelectInput<
                 children: labelSelector(option),
                 containerClassName: _cs(styles.option, isActive && styles.active),
                 title: labelSelector(option),
+                actions: actionsSelector?.(option),
                 isActive,
             };
         },
-        [labelSelector, value],
+        [labelSelector, value, actionsSelector],
     );
 
     // FIXME: value should not be on dependency list, also try to pass options like in SelectInput
