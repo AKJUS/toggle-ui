@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Story } from '@storybook/react/types-6-0';
 import { useArgs } from '@storybook/client-api';
+import { IoOpenOutline } from 'react-icons/io5';
 import SearchSelectInput, { SearchSelectInputProps } from '#components/SelectInput/SearchSelectInput';
+import QuickActionButton from '#components/QuickActionButton';
 import useQuery, { entityListTransformer } from '../utils/useQuery';
 
 export default {
@@ -191,6 +193,27 @@ NoValue.args = {
 export const Default = Template.bind({});
 Default.args = {
     value: '1',
+};
+
+function handleClick(_:string | undefined, e: React.MouseEvent<HTMLButtonElement>) {
+    // NOTE: This intentionally breaks HTML semantics (link inside a button).
+    // This workaround is to allow clickable links inside SelectInput options
+    // where a button wrapper is required.
+    e.stopPropagation();
+    window.open('https://www.google.com/search?q=story', '_blank');
+}
+
+export const WithActions = Template.bind({});
+WithActions.args = {
+    actionsSelector: () => (
+        <QuickActionButton
+            name={undefined}
+            onClick={handleClick}
+            transparent
+        >
+            <IoOpenOutline />
+        </QuickActionButton>
+    ),
 };
 
 export const Disabled = Template.bind({});
