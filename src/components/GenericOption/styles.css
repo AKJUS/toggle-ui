@@ -2,3 +2,12 @@
     padding: calc(var(--tui-spacing-large) - var(--tui-spacing-small));
     text-align: left;
 }
+.option-container {
+    display: flex;
+    align-items: center;
+    padding-right: var(--tui-spacing-small);
+
+    .option-renderer {
+        flex-grow: 1;
+    }
+}
