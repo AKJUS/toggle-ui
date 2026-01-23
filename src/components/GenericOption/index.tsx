@@ -1,5 +1,8 @@
 import React, { useCallback, useRef, useEffect } from 'react';
-import { _cs } from '@togglecorp/fujs';
+import {
+    _cs,
+    isNotDefined,
+} from '@togglecorp/fujs';
 
 import RawButton from '../RawButton';
 
@@ -15,6 +18,7 @@ export interface GenericOptionParams<P extends ContentBaseProps, OK extends Opti
     optionContainerClassName?: string;
     contentRenderer: (props: Pick<P, Exclude<keyof P, 'containerClassName' | 'title'>>) => React.ReactNode;
     contentRendererParam: (key: OK, opt: O) => P;
+    actionsSelector?: (props: O) => React.ReactNode;
     option: O;
     optionKey: OK;
     onClick: (optionKey: OK, option: O) => void;
@@ -25,6 +29,7 @@ function GenericOption<P extends ContentBaseProps, OK extends OptionKey, O>({
     optionContainerClassName,
     contentRenderer,
     contentRendererParam,
+    actionsSelector,
     option,
     onClick,
     onFocus,
@@ -81,23 +86,41 @@ function GenericOption<P extends ContentBaseProps, OK extends OptionKey, O>({
         [],
     );
 
+    if (isNotDefined(actionsSelector)) {
+        return (
+            <RawButton
+                elementRef={divRef}
+                className={_cs(styles.optionRenderer, containerClassName, optionContainerClassName)}
+                onClick={handleClick}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                title={title}
+                name={optionKey}
+                focused={isFocused}
+            >
+                {contentRenderer(props)}
+            </RawButton>
+        );
+    }
+
     return (
-        <RawButton
-            elementRef={divRef}
-            className={_cs(
-                styles.optionRenderer,
-                optionContainerClassName,
-                containerClassName,
-            )}
-            onClick={handleClick}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            title={title}
-            name={optionKey}
-            focused={isFocused}
+        <div
+            className={styles.optionContainer}
         >
-            {contentRenderer(props)}
-        </RawButton>
+            <RawButton
+                elementRef={divRef}
+                className={_cs(styles.optionRenderer, containerClassName, optionContainerClassName)}
+                onClick={handleClick}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                title={title}
+                name={optionKey}
+                focused={isFocused}
+            >
+                {contentRenderer(props)}
+            </RawButton>
+            {actionsSelector(option)}
+        </div>
     );
 }
 export default GenericOption;

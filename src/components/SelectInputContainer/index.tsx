@@ -61,6 +61,7 @@ export type SelectInputContainerProps<
     optionKeySelector: (datum: O, index: number) => OK;
     optionRenderer: (props: Pick<P, Exclude<keyof P, 'containerClassName' | 'title'>>) => React.ReactNode;
     optionRendererParams: (optionKey: OK, option: O) => P;
+    actionsSelector?: (option: O) => React.ReactNode;
     totalOptionsCount?: number;
     optionsPopupContentClassName?: string;
     options: O[] | undefined | null;
@@ -112,6 +113,7 @@ function SelectInputContainer<OK extends OptionKey, N extends string, O extends 
         optionKeySelector,
         optionRenderer,
         optionRendererParams,
+        actionsSelector,
         options: optionsFromProps,
         optionsPopupClassName,
         optionsPopupContentClassName,
@@ -221,6 +223,7 @@ function SelectInputContainer<OK extends OptionKey, N extends string, O extends 
             optionKey: key,
             focusedKey,
             contentRenderer: optionRenderer,
+            actionsSelector,
             onClick: handleOptionClick,
             onFocus: onFocusedKeyChange,
             optionContainerClassName: _cs(optionContainerClassName, styles.listItem),
@@ -232,6 +235,7 @@ function SelectInputContainer<OK extends OptionKey, N extends string, O extends 
             optionContainerClassName,
             optionRenderer,
             optionRendererParams,
+            actionsSelector,
         ],
     );
 

@@ -12,12 +12,10 @@ import { rankedSearchOnList } from '../../utils';
 import styles from './styles.css';
 
 interface OptionProps {
-    actions?: React.ReactNode;
     children: React.ReactNode;
 }
 function Option(props: OptionProps) {
     const {
-        actions,
         children,
     } = props;
 
@@ -28,9 +26,6 @@ function Option(props: OptionProps) {
             </div>
             <div className={styles.label}>
                 { children }
-            </div>
-            <div className={styles.actions}>
-                {actions}
             </div>
         </>
     );
@@ -237,12 +232,11 @@ function SearchSelectInput<
 
             return {
                 children: labelSelector(option),
-                actions: actionsSelector?.(option),
                 containerClassName: _cs(styles.option, isActive && styles.active),
                 title: labelSelector(option),
             };
         },
-        [value, labelSelector, actionsSelector],
+        [value, labelSelector],
     );
 
     const handleOptionClick = useCallback(
@@ -283,6 +277,7 @@ function SearchSelectInput<
             optionKeySelector={keySelector}
             optionRenderer={Option}
             optionRendererParams={optionRendererParams}
+            actionsSelector={actionsSelector}
             optionContainerClassName={styles.optionContainer}
             onOptionClick={handleOptionClick}
             valueDisplay={valueDisplay}

@@ -3,7 +3,6 @@ import { Story } from '@storybook/react/types-6-0';
 import { useArgs } from '@storybook/client-api';
 import { IoOpenOutline } from 'react-icons/io5';
 import MultiSelectInput, { MultiSelectInputProps } from '#components/MultiSelectInput';
-import QuickActionButton from '#components/QuickActionButton';
 
 export default {
     title: 'Input/MultiSelectInput',
@@ -48,24 +47,16 @@ const Template: Story<MultiSelectInputProps<string, string, Option, { containerC
     );
 };
 
-function handleClick(_:string | undefined, e: React.MouseEvent<HTMLButtonElement>) {
-    // NOTE: This intentionally breaks HTML semantics (link inside a button).
-    // This workaround is to allow clickable links inside SelectInput options
-    // where a button wrapper is required.
-    e.stopPropagation();
-    window.open('https://www.google.com/search?q=story', '_blank');
-}
-
 export const WithActions = Template.bind({});
 WithActions.args = {
     actionsSelector: () => (
-        <QuickActionButton
-            name={undefined}
-            onClick={handleClick}
-            transparent
+        <a
+            href="https://www.google.com/search?q=story"
+            target="_blank"
+            rel="noopener noreferrer"
         >
             <IoOpenOutline />
-        </QuickActionButton>
+        </a>
     ),
 };
 
