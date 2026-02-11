@@ -9,5 +9,8 @@
 
     .option-renderer {
         flex-grow: 1;
+        /* FIXME: This is a hack to fix styling for action buttons.
+         * We need consistent styling for this starting from SelectInputContainer. */
+        flex-shrink: unset!important;
     }
 }
