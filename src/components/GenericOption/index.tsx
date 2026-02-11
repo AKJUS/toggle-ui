@@ -109,6 +109,7 @@ function GenericOption<P extends ContentBaseProps, OK extends OptionKey, O>({
         >
             <RawButton
                 elementRef={divRef}
+                // FIXME: Need to use consistent intentional styling for this
                 className={_cs(styles.optionRenderer, containerClassName, optionContainerClassName)}
                 onClick={handleClick}
                 onMouseMove={handleMouseMove}
