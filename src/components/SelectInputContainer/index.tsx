@@ -68,6 +68,8 @@ export type SelectInputContainerProps<
     optionsPending?: boolean;
     optionsFiltered?: boolean;
     optionsPopupClassName?: string;
+    popupHeader?: React.ReactNode;
+    popupHeaderClassName?: string;
     persistentOptionPopup?: boolean;
     placeholder?: string;
     valueDisplay: string;
@@ -105,6 +107,8 @@ function SelectInputContainer<OK extends OptionKey, N extends string, O extends 
         inputSectionClassName,
         label,
         labelContainerClassName,
+        popupHeader,
+        popupHeaderClassName,
         name,
         onOptionClick,
         searchText,
@@ -370,6 +374,11 @@ function SelectInputContainer<OK extends OptionKey, N extends string, O extends 
                         optionsPopupContentClassName,
                     )}
                 >
+                    {popupHeader && (
+                        <div className={_cs(styles.popupHeader, popupHeaderClassName)}>
+                            {popupHeader}
+                        </div>
+                    )}
                     {popup}
                     <EmptyOptions
                         filtered={optionsFiltered}

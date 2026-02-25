@@ -2,6 +2,11 @@
     padding-top: calc(var(--tui-spacing-large) - var(--tui-spacing-medium));
     padding-bottom: calc(var(--tui-spacing-large) - var(--tui-spacing-medium));
 
+    .popup-header {
+        flex-grow: 1;
+        flex-shrink: 0;
+    }
+
     .popup-content {
         display: flex;
         flex-direction: column;

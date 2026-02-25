@@ -194,6 +194,11 @@ Default.args = {
     value: '1',
 };
 
+export const WithPopupHeader = Template.bind({});
+WithPopupHeader.args = {
+    popupHeader: 'Fruitsss',
+};
+
 export const WithActions = Template.bind({});
 WithActions.args = {
     actionsSelector: () => (
