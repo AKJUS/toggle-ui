@@ -70,6 +70,11 @@ Default.args = {
     value: ['1', '3'],
 };
 
+export const WithPopupHeader = Template.bind({});
+WithPopupHeader.args = {
+    popupHeader: 'Veggiesss',
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
     value: ['1', '3'],

@@ -3,6 +3,11 @@ import { Story } from '@storybook/react/types-6-0';
 import { useArgs } from '@storybook/client-api';
 import { IoOpenOutline } from 'react-icons/io5';
 import SelectInput, { SelectInputProps } from '#components/SelectInput';
+import {
+    Tabs,
+    Tab,
+    TabList,
+} from '#components/Tabs';
 
 export default {
     title: 'Input/SelectInput',
@@ -44,6 +49,31 @@ const Template: Story<SelectInputProps<string, string, Option, { containerClassN
             onChange={setValue}
         />
     );
+};
+
+export const WithPopupHeader = Template.bind({});
+WithPopupHeader.args = {
+    popupHeader: (
+        <Tabs
+            value="green"
+            onChange={() => 'green'}
+        >
+            <TabList>
+                <Tab
+                    name="green"
+                    style={{ flexGrow: 1 }}
+                >
+                    Green
+                </Tab>
+                <Tab
+                    name="yellow"
+                    style={{ flexGrow: 1 }}
+                >
+                    Yellow
+                </Tab>
+            </TabList>
+        </Tabs>
+    ),
 };
 
 export const WithActions = Template.bind({});
